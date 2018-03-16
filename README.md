@@ -4,9 +4,9 @@
  
  1 content_scripts: 畫面載入的js 邏輯
  
- 2 background_scripts: 瀏覽器一打開就執行的js 邏輯
+ 2 background_scripts: 瀏覽器一打開就執行的js 邏輯
 
- 3 popup.html: browserAction icon打開後的畫面
+ 3 popup.html: browserAction icon打開後的畫面
 
 ## TODO
 
