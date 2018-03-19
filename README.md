@@ -8,6 +8,10 @@
 
  3 popup.html: browserAction icon打開後的畫面
 
+## 功能
+ 
+ 1 顯示帳號的qrcode
+
 ## TODO
 
   1 gen Wallet key pair
