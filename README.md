@@ -12,6 +12,8 @@
  
  1 顯示帳號的qrcode
 
+ 2 選擇provider
+
 ## TODO
 
   1 gen Wallet key pair
