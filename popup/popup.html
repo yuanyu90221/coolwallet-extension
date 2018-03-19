@@ -4,9 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../node_modules/qrcode/build/qrcode.min.js"></script>
   <title>CoolWallet</title>
 </head>
 <body style="width:357px; height:600px;">
   <!-- TODO 新增Popup 畫面 -->
+  <canvas id="canvas" style="height:0; width:0;"></canvas>
+  <button id="showQRcode">showQRcode</button>
+  <button id="clearQRcode">clearQRcode</button>
+  <script src="../scripts/qrcode-fn.js"></script>
+  
 </body>
 </html>

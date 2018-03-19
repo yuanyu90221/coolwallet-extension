@@ -25,5 +25,8 @@
       "matches": ["<all_urls>"],
       "js":["scripts/content_scripts.js"]
     }
+  ],
+  "web_accessible_resources": [
+    "node_modules/qrcode/build/qrcode.min.js","scripts/qrcode-fn.js"
   ]
 }
