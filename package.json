@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/yuanyu90221/coolwallet-extension#readme",
   "dependencies": {
-    "qrcode": "^1.2.0"
+    "qrcode": "^1.2.0",
+    "web3": "^0.20.6"
   }
 }

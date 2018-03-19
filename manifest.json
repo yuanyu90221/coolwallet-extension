@@ -27,6 +27,7 @@
     }
   ],
   "web_accessible_resources": [
-    "node_modules/qrcode/build/qrcode.min.js","scripts/qrcode-fn.js"
+    "node_modules/qrcode/build/qrcode.min.js","scripts/qrcode-fn.js",
+    "node_modules/web3/dist/web3.min.js","scripts/web3-init.js"
   ]
 }

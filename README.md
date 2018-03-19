@@ -8,6 +8,10 @@
 
  3 popup.html: browserAction icon打開後的畫面
 
+## 資料結構
+
+ 1 OrderBook: 用來儲存 每筆Transaction的資料
+
 ## 功能
  
  1 顯示帳號的qrcode
