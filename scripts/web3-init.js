@@ -25,6 +25,10 @@ App = {
           accounts.forEach((account, index) => {
             let accDOM = document.createElement("div");
             accDOM.innerText = account;
+            accDOM.style = 'font-weight:bold;cursor:pointer;';
+            accDOM.addEventListener('click',(event)=> {
+              showTextIntoQRcode(document.getElementById('canvas'), account);
+            });
             accountsDiv.appendChild(accDOM);
           })
         }

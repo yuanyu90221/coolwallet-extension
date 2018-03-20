@@ -19,15 +19,3 @@ function clearQRcode(target) {
   let ctx = target.getContext("2d");
   ctx.clearRect(0, 0, target.width, target.height);
 }
-
-document.getElementById('showQRcode').addEventListener('click', (event) => {
-  let canvas = document.getElementById('canvas');
-  showTextIntoQRcode(canvas, 'test-string');
-});
-
-document.getElementById('clearQRcode').addEventListener('click', (event) => {
-  let canvas = document.getElementById('canvas');
-  clearQRcode(canvas);
-  canvas.style.height = 0;
-  canvas.style.width = 0;
-});
