@@ -22,7 +22,11 @@ App = {
         let accountsDiv = document.getElementById('accounts');
         console.log(accounts);
         if (accounts) {
-          accountsDiv.innerText=accounts;
+          accounts.forEach((account, index) => {
+            let accDOM = document.createElement("div");
+            accDOM.innerText = account;
+            accountsDiv.appendChild(accDOM);
+          })
         }
       })
     }
