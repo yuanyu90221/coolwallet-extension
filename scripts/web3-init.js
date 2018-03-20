@@ -21,6 +21,9 @@ App = {
         }
         let accountsDiv = document.getElementById('accounts');
         console.log(accounts);
+        if ( accountsDiv.childElementCount!== 0) {
+          accountsDiv.removeChild(accountsDiv.childNodes);
+        }
         if (accounts) {
           accounts.forEach((account, index) => {
             let accDOM = document.createElement("div");
