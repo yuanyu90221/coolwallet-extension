@@ -13,7 +13,6 @@ App = {
     web3 = new Web3(App.web3Provider);
   },
   getAccounts: function() {
-    console.log(web3);
     if (web3) {
       web3.eth.getAccounts(function(err, accounts) {
         if (err) {
