@@ -8,7 +8,7 @@
 
  3 popup.html: browserAction icon打開後的畫面
 
- 4 manifest.json: 對於
+ 4 manifest.json: 對於web-extension的設定欓
 
 ## 資料結構
 
@@ -27,3 +27,5 @@
   2 send transaction to ether network from web3.js
 
   3 send and receive Token from Wallet
+
+  4 add webpack config for chrome and mozilla
