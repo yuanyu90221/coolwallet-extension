@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import ReactDom from 'react-dom';
 // for QRcode Show
 import QRcode from './components/QRcode';
+// for login Component
+import Login from './components/Login';
+
 // 主要的app邏輯
 class App extends Component {
   constructor(props) {
@@ -9,7 +12,9 @@ class App extends Component {
     this.state = {
       accounts: [],
       provider: null,
-      web3: undefined
+      web3: undefined,
+      isLogin: false,
+      passwd:null
     }
   }
   componentDidMount() {
@@ -45,6 +50,23 @@ class App extends Component {
       })
     }
   }
+
+  doLogin() {
+    console.log(`test`);
+    // console.log(this.state);
+    let {passwd} = this.state;
+    if (passwd&&passwd=='answer'){
+      this.setState({isLogin: true});
+    }
+    else {
+      console.error(`login failed`);
+    }
+  }
+
+  onType(evt) {
+    // console.log(evt.target.value);
+    this.setState({passwd:evt.target.value});
+  }
   renderAccounts() {
     let {accounts} = this.state;
     return accounts.map((account,index) => {
@@ -54,11 +76,14 @@ class App extends Component {
     });
   }
   render() {
-    let {accounts} = this.state;
+    let {accounts, isLogin} = this.state;
+    let text = isLogin? 'logout':'login';
     return (
       <div>
-        <button onClick={this.loadAccounts.bind(this)}>Load accounts</button>
-        {this.renderAccounts()}
+        {isLogin&&<button onClick={this.loadAccounts.bind(this)}>Load accounts</button>}
+        {isLogin&&this.renderAccounts()}
+        {/* <button onClick={this.doLogin.bind(this)}>{text}</button> */}
+        {!isLogin&&<Login doLogin={this.doLogin.bind(this)} onType={this.onType.bind(this)}/>}
       </div>
     )
   }

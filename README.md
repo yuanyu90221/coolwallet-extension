@@ -28,4 +28,16 @@
 
   3 send and receive Token from Wallet
 
-  4 add webpack config for chrome and mozilla
+  4 add webpack config for chrome and mozilla 
+
+  5 add identity machanism for auth
+
+## Usage
+
+  1 build with gulp
+
+```
+npm run gulp-build
+```
+
+  2 import to the browser side

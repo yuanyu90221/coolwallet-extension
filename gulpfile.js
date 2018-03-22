@@ -22,10 +22,17 @@ gulp.task('lib-cp', function() {
   return gulp.src('./src/lib/*')
     .pipe(gulp.dest('./dist/lib'))
 })
-
+gulp.task('icon', function() {
+  return gulp.src('./images/*')
+    .pipe(gulp.dest('./dist/images'))
+})
+gulp.task('manifest', function() {
+  return gulp.src('./manifest.json')
+    .pipe(gulp.dest('./dist'))
+})
 gulp.task('webpack', function() {
   return gulp.src('./src/js/app.js')
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest('./dist/'))
 });
-gulp.task('rebuild', gulpSequence('remove', 'create-dir', 'lib-cp','webpack'));
+gulp.task('rebuild', gulpSequence('remove', 'create-dir', 'lib-cp', 'manifest','icon','webpack'));

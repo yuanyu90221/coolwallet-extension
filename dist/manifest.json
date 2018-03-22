@@ -1,0 +1,33 @@
+{
+  "name":"CoolWallet",
+  "version": "1.0",
+  "manifest_version": 2,
+  "author":"dev@coolbitx.com",
+  "description": "Ethereum Browser Extension",
+  "background": {
+    "scripts": [
+      "scripts/background.js"
+    ]
+  },
+  "icons": {
+    "16": "images/wallet-icon-16.png",
+    "128": "images/wallet-icon-128.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "images/wallet-icon-16.png"
+    },
+    "default_title": "CoolWallet",
+    "default_popup": "popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js":["scripts/content_scripts.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    "node_modules/qrcode/build/qrcode.min.js","scripts/qrcode-fn.js",
+    "node_modules/web3/dist/web3.min.js","scripts/web3-init.js"
+  ]
+}

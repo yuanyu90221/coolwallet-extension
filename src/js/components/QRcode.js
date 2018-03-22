@@ -35,11 +35,10 @@ class QRcode extends Component {
   render() {
     let {id, text} = this.props;
     let {isShow} = this.state;
-    let btnText = !isShow ? "Show QRCode" : "Hidden QRCode";
     return (
-      <div>
-        <canvas id={id} style={{height:0, width:0}} onClick={this.toggleQRcode.bind(this,text)}></canvas>
-        {!isShow&&<span onClick={this.toggleQRcode.bind(this,text)}>{text}</span>}
+      <div style={{marginTop: isShow? 0:'-1.3em', fontSize:'.9em'}}>
+        <canvas id={id} style={{height:'0px',width:'0px'}} onClick={this.toggleQRcode.bind(this,text)}></canvas>
+        {!isShow&&<div onClick={this.toggleQRcode.bind(this,text)}>{text}</div>}
       </div>
     )
   }
