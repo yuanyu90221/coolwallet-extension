@@ -18475,7 +18475,7 @@ var QRcode = function (_Component) {
 
       return _react2.default.createElement(
         "div",
-        { style: { marginTop: isShow ? 0 : '-1.3em', fontSize: '.9em' } },
+        { style: { display: 'flex', justifyContent: 'center', fontSize: '.9em', background: isShow ? '#aaaaaa' : '#fff' } },
         _react2.default.createElement("canvas", { id: id, style: { height: '0px', width: '0px' }, onClick: this.toggleQRcode.bind(this, text) }),
         !isShow && _react2.default.createElement(
           "div",

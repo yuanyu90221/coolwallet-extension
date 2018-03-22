@@ -36,7 +36,7 @@ class QRcode extends Component {
     let {id, text} = this.props;
     let {isShow} = this.state;
     return (
-      <div style={{marginTop: isShow? 0:'-1.3em', fontSize:'.9em'}}>
+      <div style={{display:'flex', justifyContent:'center', fontSize:'.9em', background: isShow? '#aaaaaa':'#fff'}}>
         <canvas id={id} style={{height:'0px',width:'0px'}} onClick={this.toggleQRcode.bind(this,text)}></canvas>
         {!isShow&&<div onClick={this.toggleQRcode.bind(this,text)}>{text}</div>}
       </div>
