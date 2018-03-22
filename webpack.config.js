@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
+// const autoprefixer = require('autoprefixer');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: [/node_modules/,/scripts/,/src\/lib/],
+        exclude: /node_modules/,
         use: {
           loader: "babel-loader"
         }

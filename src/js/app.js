@@ -49,16 +49,16 @@ class App extends Component {
     let {accounts} = this.state;
     return accounts.map((account,index) => {
       return (
-        <QRcode id={'canvas'+index} text={account}/>
-      )
+        <QRcode id={'canvas'+index} key={index} text={account}/>
+      );
     });
   }
   render() {
     let {accounts} = this.state;
     return (
-      <div> 
-        {this.renderAccounts()}
+      <div>
         <button onClick={this.loadAccounts.bind(this)}>Load accounts</button>
+        {this.renderAccounts()}
       </div>
     )
   }
