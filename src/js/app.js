@@ -14,7 +14,7 @@ class App extends Component {
   }
   componentDidMount() {
     //setup web3
-    console.log('load');
+    console.log('initialize web3');
     let {web3} = this.state;
     let me = this;
     if (typeof web3 !== 'undefined') {
@@ -45,11 +45,19 @@ class App extends Component {
       })
     }
   }
-  
+  renderAccounts() {
+    let {accounts} = this.state;
+    return accounts.map((account,index) => {
+      return (
+        <QRcode id={'canvas'+index} text={account}/>
+      )
+    });
+  }
   render() {
+    let {accounts} = this.state;
     return (
       <div> 
-        <QRcode id={"canvas"} text="test"/>
+        {this.renderAccounts()}
         <button onClick={this.loadAccounts.bind(this)}>Load accounts</button>
       </div>
     )
