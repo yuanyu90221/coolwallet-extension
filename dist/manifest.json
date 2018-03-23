@@ -18,7 +18,7 @@
       "16": "images/wallet-icon-16.png"
     },
     "default_title": "CoolWallet",
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup.html"
   },
   "content_scripts": [
     {
@@ -27,7 +27,8 @@
     }
   ],
   "web_accessible_resources": [
-    "node_modules/qrcode/build/qrcode.min.js","scripts/qrcode-fn.js",
-    "node_modules/web3/dist/web3.min.js","scripts/web3-init.js"
+    "lib/qrcode.min.js","scripts/qrcode-fn.js",
+    "lib/web3.min.js","scripts/web3-init.js",
+    "js/app.js"
   ]
 }

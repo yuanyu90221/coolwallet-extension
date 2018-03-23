@@ -18538,10 +18538,9 @@ var Login = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: { display: "flex", justifyContent: "center", alignItems: "center", height: "600px" } },
+        { style: { display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "600px" } },
         _react2.default.createElement('div', { id: 'company_ico' }),
         _react2.default.createElement('input', { type: 'password', onChange: onType }),
-        _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
           { onClick: doLogin },
