@@ -41,3 +41,15 @@ npm run gulp-build
 ```
 
   2 import to the browser side
+
+## Notice
+
+  1 目前已新增google-auth 到extension內
+
+  但目前由於還沒上架 故必須要先到background-script console.log看目前的redirect url
+
+  再重新註冊一個固定的值
+
+  2 目前寫法build 在firefox的版本
+
+  如果要換到chrome必須要把browser系列的function做promisify
