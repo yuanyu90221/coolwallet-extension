@@ -50,17 +50,31 @@ class App extends Component {
       })
     }
   }
-
+  
+  handleResponse(message) {
+    console.log(this);
+    console.log(`Message from the background script:  ${message.response}`);
+    this.setState({isLogin: true});
+  }
+  
+  handleError(error) {
+    console.log(`Error: ${error}`);
+  }
+  
   doLogin() {
     console.log(`test`);
     // console.log(this.state);
     let {passwd} = this.state;
-    if (passwd&&passwd=='answer'){
-      this.setState({isLogin: true});
-    }
-    else {
-      console.error(`login failed`);
-    }
+    // if (passwd&&passwd=='answer'){
+    //   this.setState({isLogin: true});
+    // }
+    // else {
+    //   console.error(`login failed`);
+    // }
+    let me = this;
+    browser.runtime.sendMessage({
+      action:'do-auth'
+    }).then(this.handleResponse.bind(me),this.handleError);
   }
 
   onType(evt) {
@@ -82,7 +96,6 @@ class App extends Component {
       <div>
         {isLogin&&<button onClick={this.loadAccounts.bind(this)}>Load accounts</button>}
         {isLogin&&this.renderAccounts()}
-        {/* <button onClick={this.doLogin.bind(this)}>{text}</button> */}
         {!isLogin&&<Login doLogin={this.doLogin.bind(this)} onType={this.onType.bind(this)}/>}
       </div>
     )
