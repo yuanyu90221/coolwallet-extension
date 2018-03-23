@@ -9,9 +9,9 @@ class Login extends Component {
   render() {
     let {doLogin, onType} = this.props;
     return (
-      <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"600px"}}>
+      <div style={{display:"flex", justifyContent:"center", alignItems:"center",flexDirection:"column", height:"600px"}}>
         <div id="company_ico"></div>
-        <input type="password" onChange={onType}/><br/>
+        <input type="password" onChange={onType}/>
         <button onClick={doLogin}>login</button>
       </div>
     )

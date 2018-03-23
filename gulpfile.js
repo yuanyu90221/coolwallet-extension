@@ -30,9 +30,13 @@ gulp.task('manifest', function() {
   return gulp.src('./manifest.json')
     .pipe(gulp.dest('./dist'))
 })
+gulp.task('scripts', function(){
+  return gulp.src('./scripts/*')
+    .pipe(gulp.dest('./dist/scripts'))
+})
 gulp.task('webpack', function() {
   return gulp.src('./src/js/app.js')
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest('./dist/'))
 });
-gulp.task('rebuild', gulpSequence('remove', 'create-dir', 'lib-cp', 'manifest','icon','webpack'));
+gulp.task('rebuild', gulpSequence('remove', 'create-dir', 'lib-cp', 'scripts','manifest','icon','webpack'));
