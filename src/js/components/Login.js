@@ -6,20 +6,27 @@ class Login extends Component {
     super(props);
   }
 
-  componentWillMount() {
-
-  }
-
   render() {
-    let {doLogin, onType} = this.props;
+    let {doLogin, onType, isLogin} = this.props;
+    const {showAll} = styles;
     return (
-      <div style={{display:"flex", justifyContent:"center", alignItems:"center",flexDirection:"column", height:"600px"}}>
-        <div id="company_ico"></div>
-        <span style={{marginBottom:'1em', fontWeight:'bold', fontSize:'1.5em'}}>CoolWallet</span>
-        <input type="password" onChange={onType} placeholder={'enter password'}/>
-        <button onClick={doLogin}>login</button>
+      <div style={showAll}>
+        {!isLogin&&<div id="company_ico"></div>}
+        {!isLogin&&<span style={{marginBottom:'1em', fontWeight:'bold', fontSize:'1.5em'}}>CoolWallet</span>}
+        {!isLogin&&<input type="password" onChange={onType} placeholder={'enter password'}/>}
+        <button onClick={doLogin}>{!isLogin?'login':'logout'}</button>
       </div>
     )
+  }
+}
+
+const styles = {
+  showAll: {
+    display:"flex", 
+    justifyContent:"center", 
+    alignItems:"center",
+    flexDirection:"column", 
+    height:"600px"
   }
 }
 

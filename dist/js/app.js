@@ -1064,6 +1064,25 @@ var App = function (_Component) {
       }
     }
   }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      // set up localStorage
+      browser.storage.local.get().then(function (results) {
+        console.log('storage content', results);
+        if (results.isLogin === undefined) {
+          console.log('set isLogin');
+          browser.storage.local.set({ isLogin: false }).then(function () {
+            console.log('test');
+          });
+        } else {
+          console.log(results.isLogin);
+          _this2.setState({ isLogin: results.isLogin });
+        }
+      });
+    }
+  }, {
     key: 'loadAccounts',
     value: function loadAccounts() {
       var web3 = this.state.web3;
@@ -1083,9 +1102,13 @@ var App = function (_Component) {
   }, {
     key: 'handleResponse',
     value: function handleResponse(message) {
-      console.log(this);
-      console.log('Message from the background script:  ' + message.response);
+      // console.log(this.state);
       this.setState({ isLogin: true });
+      console.log('handle messsage end');
+      browser.storage.local.set({ isLogin: true }).then(function () {
+        console.log('final setup');
+      });
+      // console.log(`Message from the background script:  ${message.response}`);
     }
   }, {
     key: 'handleError',
@@ -1095,20 +1118,20 @@ var App = function (_Component) {
   }, {
     key: 'doLogin',
     value: function doLogin() {
-      console.log('test');
-      // console.log(this.state);
-      var passwd = this.state.passwd;
-      // if (passwd&&passwd=='answer'){
-      //   this.setState({isLogin: true});
-      // }
-      // else {
-      //   console.error(`login failed`);
-      // }
+      var _state = this.state,
+          passwd = _state.passwd,
+          isLogin = _state.isLogin;
 
       var me = this;
-      browser.runtime.sendMessage({
-        action: 'do-auth'
-      }).then(this.handleResponse.bind(me), this.handleError);
+      var sendMessage = asyncWrapper(chrome.runtime.sendMessage);
+      if (!isLogin) {
+        sendMessage({
+          action: 'do-auth'
+        }).then(me.handleResponse.bind(me), me.handleError);
+      } else {
+        browser.storage.local.set({ isLogin: false });
+        me.setState({ isLogin: false });
+      }
     }
   }, {
     key: 'onType',
@@ -1128,9 +1151,9 @@ var App = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _state = this.state,
-          accounts = _state.accounts,
-          isLogin = _state.isLogin;
+      var _state2 = this.state,
+          accounts = _state2.accounts,
+          isLogin = _state2.isLogin;
 
       var text = isLogin ? 'logout' : 'login';
       return _react2.default.createElement(
@@ -1142,7 +1165,7 @@ var App = function (_Component) {
           'Load accounts'
         ),
         isLogin && this.renderAccounts(),
-        !isLogin && _react2.default.createElement(_Login2.default, { doLogin: this.doLogin.bind(this), onType: this.onType.bind(this) })
+        _react2.default.createElement(_Login2.default, { doLogin: this.doLogin.bind(this), onType: this.onType.bind(this), isLogin: isLogin })
       );
     }
   }]);
@@ -18549,29 +18572,28 @@ var Login = function (_Component) {
   }
 
   _createClass(Login, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {}
-  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
           doLogin = _props.doLogin,
-          onType = _props.onType;
+          onType = _props.onType,
+          isLogin = _props.isLogin;
+      var showAll = styles.showAll;
 
       return _react2.default.createElement(
         'div',
-        { style: { display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "600px" } },
-        _react2.default.createElement('div', { id: 'company_ico' }),
-        _react2.default.createElement(
+        { style: showAll },
+        !isLogin && _react2.default.createElement('div', { id: 'company_ico' }),
+        !isLogin && _react2.default.createElement(
           'span',
           { style: { marginBottom: '1em', fontWeight: 'bold', fontSize: '1.5em' } },
           'CoolWallet'
         ),
-        _react2.default.createElement('input', { type: 'password', onChange: onType, placeholder: 'enter password' }),
+        !isLogin && _react2.default.createElement('input', { type: 'password', onChange: onType, placeholder: 'enter password' }),
         _react2.default.createElement(
           'button',
           { onClick: doLogin },
-          'login'
+          !isLogin ? 'login' : 'logout'
         )
       );
     }
@@ -18579,6 +18601,16 @@ var Login = function (_Component) {
 
   return Login;
 }(_react.Component);
+
+var styles = {
+  showAll: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    height: "600px"
+  }
+};
 
 exports.default = Login;
 

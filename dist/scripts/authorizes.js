@@ -8,6 +8,7 @@ const AUTH_URL =
 const VALIDATION_BASE_URL="https://www.googleapis.com/oauth2/v3/tokeninfo";
 
 function extractAccessToken(redirectUri) {
+  console.log(redirectUri);
   let m = redirectUri.match(/[#?](.*)/);
   if (!m || m.length < 1)
     return null;
@@ -35,8 +36,9 @@ function validate(redirectURL) {
   const validationRequest = new Request(validationURL, {
     method: "GET"
   });
-
+  
   function checkResponse(response) {
+    console.log(response);
     return new Promise((resolve, reject) => {
       if (response.status != 200) {
         reject("Token validation error");
@@ -59,11 +61,29 @@ Authenticate and authorize using browser.identity.launchWebAuthFlow().
 If successful, this resolves with a redirectURL string that contains
 an access token.
 */
+const identity = asyncWrapper(chrome.identity.launchWebAuthFlow);
 function authorize() {
   return browser.identity.launchWebAuthFlow({
     interactive: true,
     url: AUTH_URL
   });
+  // return identity({
+  //   interactive: true,
+  //   url: AUTH_URL
+  // });
+}
+
+
+/**
+ * asyncWrapper turn callback function into Promise
+ * @param {*} asycFunc 
+ */
+function asyncWrapper(asycFunc) {
+  return function(arg) {
+    return new Promise((resolve, reject) => {
+      asycFunc(arg, (e, data) => e? reject(e): resolve(data));
+    })
+  }
 }
 
 function getAccessToken() {

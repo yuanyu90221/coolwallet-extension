@@ -17,6 +17,7 @@ class App extends Component {
       passwd:null
     }
   }
+
   componentDidMount() {
     //setup web3
     console.log('initialize web3');
@@ -34,8 +35,24 @@ class App extends Component {
       console.log(provider);
       this.setState({ web3,provider:provider});
     }
+    
   }
-
+  componentWillMount() {
+    // set up localStorage
+    browser.storage.local.get().then(results => {
+      console.log( `storage content`,results);
+      if(results.isLogin===undefined) {
+        console.log(`set isLogin`)
+        browser.storage.local.set({isLogin:false}).then(()=>{
+          console.log(`test`);
+        });      
+      }
+      else {
+        console.log(results.isLogin);
+        this.setState({isLogin: results.isLogin});
+      }
+    })
+  }
   loadAccounts() {
     let {web3} = this.state;
     let me = this;
@@ -52,9 +69,14 @@ class App extends Component {
   }
   
   handleResponse(message) {
-    console.log(this);
-    console.log(`Message from the background script:  ${message.response}`);
+    // console.log(this.state);
     this.setState({isLogin: true});
+    console.log(`handle messsage end`);
+    browser.storage.local.set({isLogin:true}).then(() => {
+      console.log(`final setup`);
+    });
+    // console.log(`Message from the background script:  ${message.response}`);
+    
   }
   
   handleError(error) {
@@ -62,19 +84,17 @@ class App extends Component {
   }
   
   doLogin() {
-    console.log(`test`);
-    // console.log(this.state);
-    let {passwd} = this.state;
-    // if (passwd&&passwd=='answer'){
-    //   this.setState({isLogin: true});
-    // }
-    // else {
-    //   console.error(`login failed`);
-    // }
-    let me = this;
-    browser.runtime.sendMessage({
-      action:'do-auth'
-    }).then(this.handleResponse.bind(me),this.handleError);
+    const {passwd, isLogin} = this.state;
+    const me = this;
+    const sendMessage = asyncWrapper(chrome.runtime.sendMessage);
+    if(!isLogin) {    
+      sendMessage({
+        action:'do-auth'
+      }).then(me.handleResponse.bind(me),me.handleError);
+    } else {
+      browser.storage.local.set({isLogin:false});
+      me.setState({isLogin:false});
+    }
   }
 
   onType(evt) {
@@ -96,11 +116,11 @@ class App extends Component {
       <div>
         {isLogin&&<button onClick={this.loadAccounts.bind(this)}>Load accounts</button>}
         {isLogin&&this.renderAccounts()}
-        {!isLogin&&<Login doLogin={this.doLogin.bind(this)} onType={this.onType.bind(this)}/>}
+        {<Login doLogin={this.doLogin.bind(this)} onType={this.onType.bind(this)} isLogin={isLogin}/>}
       </div>
     )
   }
 }
-
+ 
 ReactDom.render(<App/>, document.getElementById('app'));
 
