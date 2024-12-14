@@ -48,7 +48,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "style-loader": "^0.20.3",
-    "web3": "^0.20.6",
+    "web3": "^4.16.0",
     "webpack": "^5.94.0",
     "webpack-stream": "^7.0.0"
   },
